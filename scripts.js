@@ -15,7 +15,12 @@ function showResult() {
     day = d.getDate();
   } else { /* Invalid date */ }
 
-  var age = calculateAge(data);
+  var now = new Date();
+  var yourAge = now - data;
+  // in days
+  yourAgeInYears = Math.floor(age/1000/60/60/24/365);
+  // in years
+  
 
   var zodiacSign = getZodiacSign(day, month);
   if (vardas.length > 0 & data.length > 0) {
@@ -24,7 +29,8 @@ function showResult() {
         <h2>${vardas}</h2>
         <p>Gimimo diena: ${data}</p>
         <p>Zodiako zeklas: ${zodiacSign}</p>
-        
+        <p>Amžius: ${yourAgeInYears}</p>
+        <p>Gimė pirmadienį prieš ${yourAge} dienų</p>
         </div>
         `
   } else {
@@ -48,13 +54,6 @@ function formatMyDate(string) {
     var b = a[1] + "-"+ a[2];
     return b;
 }
-
-function calculateAge(birthday) { // birthday is a date
-  var ageDifMs = Date.now() - birthday.getTime();
-  var ageDate = new Date(ageDifMs); // miliseconds from epoch
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-}
-
 
 function getFamousPeople(day, month) {
   var data = document.getElementById("input-date").value;
