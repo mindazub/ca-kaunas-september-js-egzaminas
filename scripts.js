@@ -7,7 +7,8 @@ function showResult() {
   var h = '';
   var vardas = document.getElementById("input-name").value;
   var data = document.getElementById("input-date").value;
-
+  var dataNumber ="";
+  console.log(data + "ivestos datos tipas yra: " + typeof(data))
   var d = new Date();
   if (!!d.valueOf()) { // Valid date
     year = d.getFullYear();
@@ -15,12 +16,19 @@ function showResult() {
     day = d.getDate();
   } else { /* Invalid date */ }
 
-  var now = new Date();
-  var yourAge = now - data;
-  // in days
-  yourAgeInYears = Math.floor(age/1000/60/60/24/365);
-  // in years
+  // var now = new Date().toISOString().slice(0,10);
+  // console.log(now + " tipas yra: " + typeof(now) );
+  // console.log(data + " tipas yra: " + typeof(data) );
+  // var yourAge = now - data;
+  // console.log("Your Age is: " + yourAge + " tipas yra: " + typeof(yourAge));
+  // // in days
+  // yourAgeInYears = Math.floor(yourAge/1000/60/60/24/365);
+  // // in years
+  var yourAge = getAge(data);
+  console.log("Myage is: " + yourAge);
   
+  var yourAgeInDays = getYourAgeInDays(yourAge);
+  console.log("Myage in days is: " + yourAgeInDays);
 
   var zodiacSign = getZodiacSign(day, month);
   if (vardas.length > 0 & data.length > 0) {
@@ -29,8 +37,8 @@ function showResult() {
         <h2>${vardas}</h2>
         <p>Gimimo diena: ${data}</p>
         <p>Zodiako zeklas: ${zodiacSign}</p>
-        <p>Amžius: ${yourAgeInYears}</p>
-        <p>Gimė pirmadienį prieš ${yourAge} dienų</p>
+        <p>Amžius: ${yourAge}</p>
+        <p>Gimė pirmadienį prieš ${yourAgeInDays} dienų</p>
         </div>
         `
   } else {
@@ -45,6 +53,31 @@ function showResult() {
   // get Famous People
   getFamousPeople(day, month);
 }
+
+/**
+ * Get age in years
+ * 
+ * @param {} dateString 
+ */
+
+function getAge(dateString) {
+  var today = new Date();
+  var birthDate = new Date(dateString);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  
+  return age;
+}
+
+function getYourAgeInDays(age) {
+  return age * 365;
+}
+
+
+
 /**
  * Format String Date For Comparison
  * @param {} string 
