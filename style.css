@@ -2,12 +2,10 @@ h1{
     text-align: center;
     margin-bottom: 60px;
 }
-
 body {
     background-color: #f5f8fa;
     margin: 60px;
 }
-
-#my-form{
-    background-color: aquamarine;
+#people-and-lithuanians{
+    margin-top: 25px;
 }
